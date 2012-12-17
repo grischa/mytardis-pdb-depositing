@@ -1,0 +1,19 @@
+[{
+    "model": "tardis_portal.parametername",
+    "fields": {
+        "name": "YUNITS",
+        "data_type": 2,
+        "is_searchable": false,
+        "choices": "",
+        "comparison_type": 8,
+        "full_name": "YUNITS",
+        "units": "",
+        "order": 9999,
+        "immutable": false,
+        "schema": [
+            "http://www.tardis.edu.au/schemas/pdb_deposition/2012/11/26"
+        ]
+    }
+},{
+
+}]

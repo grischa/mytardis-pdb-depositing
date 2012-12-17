@@ -1,0 +1,33 @@
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<div class="pdb_depositing">
+  <h2>This tool will help you collect information for depositing
+your PDB file into the Protein Data Bank</h2>
+<p>When you pressed the button, the information contained in the
+experiment and dataset was collected and inserted into the
+author-infor.text template. It is not yet complete,
+you will still need to add further information.</p>
+<p>Below the box you can find a download link.</p>
+<p>The more data you keep in mytardis, the more we will be able to prefill
+automatically.</p>
+<p>Feedback on this feature is most welcome.</p>
+</div>
+
+<script type="text/javascript">
+var dataset_file_id = "{{dataset_file_id}}";
+</script>
+<form>
+{# form #}
+<textarea cols="80" rows="40" readonly style="width:auto;font-family:monospace;">
+{{author_infor}}
+</textarea>
+<p>
+<a style="font-weight:bold;"  href="{% url tardis.apps.pdb_depositing.views.download dataset_file_id%}">Download File</a>
+</p>
+</form>
+
+
+
+
+
+
+

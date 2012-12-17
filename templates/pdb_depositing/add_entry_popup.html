@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Add {{field}}</title>
+  </head>
+  <body>
+    <h1>Add {{field}}</h1>
+    <form method="POST" 
+	  action="/apps/pdb-depositing/add/{{dataset_file_id}}/{{field}}/">
+      <table>
+	{{form}}
+      </table>
+      <p><input type="submit" />|<a href="javascript:window.close()">Cancel</a></p>
+    </form>
+  </body>
+</html>

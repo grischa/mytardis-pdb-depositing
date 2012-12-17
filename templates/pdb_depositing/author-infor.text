@@ -1,0 +1,407 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			GUIDELINES FOR USING THIS FILE
+  1. All text should be entered in-between the quotation marks (" ")
+
+     Example: <#citation_year = " "> should be  <#citation_year = "2007">
+  
+  2. Descriptions and examples for the data items are provided in the right 
+     column.
+
+  3. The entries marked by '!' are mandatory for ADIT deposition.
+
+  4. Not every data item needs to be filled in.
+
+  5. Blank spaces or carriage returns within a pair of quotation marks are
+     ignored by the program. 
+      
+  6. If you need to enter more items than there is space given, you can copy
+     and paste more options.
+
+     Example: If you need to enter more than 4 structure authors, 
+     copy and paste additional <#structure_author_name = " "> into the file.
+
+  7. If you need to enter more categories than there is space given, you can 
+     copy and paste more categories.
+
+     Be sure to indicate the identification number of the new category.
+
+     Example: If two structural genomics centers determined a structure, they
+     would be numbered 1 and 2:
+
+     <#SG_project_id = " 1">  
+     <#SG_project_name = "PSI ">       
+     <#full_name_of_SG_center = "Berkeley Structural Genomics Center ">   
+
+     <#SG_project_id = " 2">  
+     <#SG_project_name = "PSI ">       
+     <#full_name_of_SG_center = "Joint Center for Structural Genomics ">   
+    
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~START INPUT DATA BELOW~~~~~~~~~~~~~~~~~~~~~~~
+
+================CATEGORY 1:   Contact Authors=============================
+
+Annotation staff will correspond with all contact authors provided about 
+the deposition.
+
+    Note: PI information should be always given.
+   
+1.  Information about the Principal Investigator (PI). 
+{% for contact in contact_authors %}
+{% if forloop.first %}
+<contact_author_PI_id = "{{ forloop.counter }}">           !(1, 2)
+<contact_author_PI_salutation = " ">     (Dr./Prof./Mr./Mrs./Ms.)
+<contact_author_PI_first_name = "{{contact.first_name}}">      !(e.g. John)
+<contact_author_PI_last_name = "{{contact.last_name}}">        !(e.g. Rodgers)
+<contact_author_PI_middle_name = "{{middle_name}}">         
+<contact_author_PI_role = "principal investigator/group leader">   !(or investigator/responsible scientist)
+<contact_author_PI_organization_type = "academic"> !(or commercial/government/other)
+<contact_author_PI_email = "{{contact.email}}">        !(e.g. name@host.domain.country)      
+<contact_author_PI_address = " ">            !(e.g. 610 Taylor Road)
+<contact_author_PI_city = " ">               !(e.g. Piscataway)
+<contact_author_PI_State_or_Province = " ">   !(e.g.  New Jersey)
+<contact_author_PI_Zip_Code = " ">           !(e.g.  08864)
+<contact_author_PI_Country = " ">          !(e.g.  UNITED STATES)
+<contact_author_PI_fax_number = " ">
+<contact_author_PI_phone_numer = " ">
+{% else %}
+
+2. Information about other contact authors
+Additional contact authors can be added by duplicating this section and
+increasing the ID number.
+
+<contact_author_id = "{{forloop.counter}}">  (integer: e.g. 2,3,4.  Number 1 is reserved for PI)
+<contact_author_salutation = " ">   
+<contact_author_first_name = "{{contact.first_name}}">      
+<contact_author_last_name = "{{contact.last_name}}">
+<contact_author_middle_name = "{{middle_name}}">         
+<contact_author_role = " ">    
+<contact_author_organization_type = " ">  
+<contact_author_email = "{{contact.email}}">
+<contact_author_address = " ">
+<contact_author_city = " ">              
+<contact_author_State_or_Province = " ">   
+<contact_author_Zip_Code = " ">           
+<contact_author_Country = " ">          
+<contact_author_fax_number = " ">
+<contact_author_phone_numer = " ">
+{% endif %}
+{% endfor %}
+
+
+================CATEGORY 2:   Structural Genomics=========================
+For structures from the structural genomics projects.
+
+Additional centers can be added by duplicating this section and increasing
+the ID number.
+
+
+<SG_project_id = " 1">  
+<SG_project_name = " ">        (PSI or NPPSFA)
+<full_name_of_SG_center = " ">   (e.g. Berkeley Structural Genomics Center)
+
+
+
+================CATEGORY 3:   Release Status==============================
+The release status for the coordinates, structure_factors, and sequence
+
+   Status should be chosen from one of the following:
+* for coordinate & structure_factor
+  (RELEASE NOW, HOLD FOR PUBLICATION,  HOLD FOR 8 WEEKS, 
+   HOLD FOR 6 MONTHS, HOLD FOR 1 YEAR)
+
+* for sequence (give either RELEASE NOW or HOLD FOR RELEASE)
+
+<Release_status_for_coordinates = "{{release_status.coord}}">       !(e.g. RELEASE NOW)
+<Release_status_for_structure_factor = "{{release_status.sf}}">   !(e.g. RELEASE NOW)
+<Release_status_for_sequence = "{{release_status.seq}}">    !!(only RELEASE NOW or HOLD FOR RELEASE)
+
+================CATEGORY 4:   Title=======================================
+Enter the title for the structure
+
+<structure_title = "{{title}}">     !(e.g. Crystal Structure Analysis of the B-DNA)
+
+
+Enter any additional features of this structure 
+that will not be included elsewhere in the deposition
+
+<structure_details = "{{comments}}">   
+
+
+================CATEGORY 5: Authors of Structure============================
+Enter authors of the deposited structures (e.g. Surname, F.M.) 
+Additional authors can be added by duplicating this token.
+
+{% for author in authors %}
+<structure_author_name = "{{author}}">
+{% endfor %}
+<structure_author_name = " ">   !(e.g.  Surname, F.M.)
+<structure_author_name = " ">
+
+
+================CATEGORY 6:   Citation Authors============================
+Enter author names for the publications associated with this deposition.
+
+      The primary citation is the article in which the deposited coordinates 
+      were first reported. Other related citations may also be provided.
+
+1. For the primary citation
+<primary_citation_author_name = " ">    (e.g. Surname, F.M.) 
+<primary_citation_author_name = " ">
+<primary_citation_author_name = " ">
+<primary_citation_author_name = " ">
+...add more if needed...
+
+2. For related citations  (if applicable)
+<citation_author_id = " ">    (e.g., 1, 2 ..)
+<citation_author_name = " ">
+<citation_author_name = " ">
+<citation_author_name = " ">
+<citation_author_name = " ">
+...add more if needed...
+
+
+Authors for additional citation can be added by duplicating section 2 and
+increasing the ID number.
+
+
+================CATEGORY 7:   Citation Article============================
+Enter citation article (journal, title, year, volume, page)  
+
+      If the citation has not yet been published, use 'To be published' 
+      for the category 'journal_abbrev' and leave pages and volume blank. 
+
+1. For primary citation
+<primary_citation_id = "primary">     
+<primary_citation_journal_abbrev = " ">     (e.g. to be published)
+<primary_citation_title = " ">   
+<primary_citation_year = " ">
+<primary_citation_journal_volume = " "> 
+<primary_citation_page_first = " ">
+<primary_citation_page_last = " ">
+
+2. For other related citation (if applicable)
+<citation_id = "1 ">               (e.g. 1, 2, 3 ...)
+<citation_journal_abbrev = " ">
+<citation_title = " ">
+<citation_year = " ">
+<citation_journal_volume = " "> 
+<citation_page_first = " ">
+<citation_page_last = " ">
+
+
+Additional citations can be added by duplicating section 2 and increasing 
+the citation_id number. ID number should correspond to the ID of the 
+citation authors given.
+
+
+
+================CATEGORY 8:   Molecule Names==============================
+Enter the names of the molecules (entities) that are in the asymmetric unit
+ 
+Additional names can be added by duplicating this token.
+
+NOTE: Each chemically unique molecule is called an entity. 
+      The name of molecule should be obtained from the appropriate 
+      sequence database reference, if available. Otherwise the gene name or
+      other common name of the entity may be used. 
+      e.g. HIV-1 integrase for protein 
+           RNA Hammerhead Ribozyme for RNA 
+
+<molecule_name = " ">    !(for entity 1)
+<molecule_name = " ">    (for entity 2)
+
+
+
+================CATEGORY 9:   Molecule Details============================
+Enter additional information about each entity, if known. (optional)
+
+      Additional information would include details such as fragment name 
+      (if applicable), mutation, and E.C. number.
+
+1. For entity 1
+<Molecular_entity_id = "1 ">      (e.g. 1, 2, ...)
+<Fragment_name = " ">             (e.g. ligand binding domain, hairpin)
+<Specific_mutation = " ">         (e.g. C280S)
+<Enzyme_Comission_number = " ">   (if known: e.g. 2.7.7.7)
+
+2. For entity 2
+<Molecular_entity_id = " ">       
+<Fragment_name = " ">   
+<Specific_mutation = " ">      
+<Enzyme_Comission_number = " "> 
+
+Additional molecule details can be added by duplicating section 2 and increasing 
+the ID number.
+
+
+
+================CATEGORY 10:   Genetically Manipulated Source=============
+Enter data in the genetically manipulated source category 
+
+      If the biomolecule has been genetically manipulated, describe its 
+      source and expression system here. 
+
+1. For entity 1
+<Manipulated_entity_id = "1 ">               !(e.g. 1, 2, ...)
+<Source_organism_scientific_name = " ">      !(e.g. Homo sapiens)
+<Source_organism_gene = " ">                 (e.g. RPOD, ALKA...)
+<Source_organism_strain = " ">               (e.g. BH10 ISOLATE, K-12...)
+<Expression_system_scientific_name = " ">    (e.g. Escherichia coli)
+<Expression_system_strain = " ">	     (e.g. BL21(DE3))
+<Expression_system_vector_type = " ">	     (e.g. plasmid)
+<Expression_system_plasmid_name = " ">       (e.g. pET26)
+<Manipulated_source_details = " ">           (any other relevant information)
+
+2. For entity 2
+<Manipulated_entity_id = "  ">       
+<Source_organism_scientific_name = " ">    
+<Source_organism_gene = " ">     
+<Source_organism_strain = " ">  
+<Expression_system_scientific_name = " ">  
+<Expression_system_strain = " ">	     
+<Expression_system_vector_type = " ">	     
+<Expression_system_plasmid_name = " ">     
+<Manipulated_source_details = " ">        
+
+
+Additional information can be added by duplicating section 2 and increasing 
+the ID number.
+
+================CATEGORY 11:   Natural Source=============================
+Enter data in the natural source category  (if applicable)
+
+    If the biomolecule was derived from a natural source, describe it here.
+      
+
+1. For entity 1
+<natural_source_entity_id = " ">          (e.g. 1, 2, ...)
+<natural_source_scientific_name = " ">    (e.g. Homo sapiens)
+<natural_source_organism_strain = " ">    (e.g. DH5a , BMH 71-18)
+<natural_source_details = " ">            (e.g. organ, tissue, cell ..)
+
+
+2. For entity 2
+<natural_source_entity_id = " ">    
+<natural_source_scientific_name = " "> 
+<natural_source_organism_strain = " ">    
+<natural_source_details = " ">   
+
+
+
+Additional information can be added by duplicating section 2 and increasing 
+the ID number.
+
+================CATEGORY 12:  Synthetic Source=============================
+If the biomolecule has not been genetically manipulated or synthesized, 
+describe its source here. 
+
+1. For entity 1
+<synthetic_source_entity_id = " ">          (e.g. 1, 2, ...)
+<synthetic_source_description = " ">      (if known)
+
+2. For entity 2
+<synthetic_source_entity_id = " ">    
+<synthetic_source_description = " ">     
+
+
+Additional information can be added by duplicating section 2 and increasing 
+the ID number.
+
+================CATEGORY 13:   Keywords===================================
+Enter a list of keywords that describe important features of the deposited
+structure.  
+
+      For example, beta barrel, protein-DNA complex, double helix, 
+      hydrolase, structural genomics etc. 
+
+
+<structure_keywords = " ">   !(e.g. beta barrel)
+
+================CATEGORY 14:   Biological Assembly========================
+Enter data in the biological assembly category (if applicable)
+
+      Biological assembly describes the functional unit(s) present in the
+      structure. There may be part of a biological assembly, one or more 
+      than one biological assemblies in the asymmetric unit.
+      Case 1
+      * If the asymmetric unit is the same as the biological assembly
+	nothing special needs to be noted here.
+      Case 2
+      * If the asymmetric unit does not contain a complete biological unit. 
+	Please provide symmetry operations including translations required 
+	to build the biological unit.
+	(example:
+	The biological assembly is a hexamer generated from the dimer
+	in the asymmetric unit by the operations:  -y, x-y-1, z-1 and 
+	-x+y, -x-1, z-l.)
+      Case 3
+      * If the asymmetric unit has multiple biological units
+	Please specify how to group the contents of the asymmetric unit into 
+	biological units.
+	(example:
+	The biological unit is a dimer. There are 2 biological units in the 
+	asymmetric unit (chains A & B and chains C & D).
+
+
+Additional information can be added by duplicating this token.
+
+
+<biological_assembly = "biological unit is the same as asym.">    (unit 1)
+
+
+================CATEGORY 15:   Methods and Conditions=====================
+Enter the crystallization conditions for each crystal
+
+1. For crystal 1:				
+<crystal_number = "1 ">	            (e.g. 1, 2, ...)
+<crystallization_method = " ">      (e.g. vapor diffusion, hanging drop) 
+<crystallization_pH = " ">          (e.g. 7.5 ...)
+<crystallization_temperature = " "> (e.g. 298) (in Kelvin) 
+<crystallization_details = " ">     (e.g. PEG 4000, NaCl etc.)
+
+
+Additional information can be added by duplicating this section and increasing 
+the ID number.
+
+================CATEGORY 16:   Radiation Source (experiment)============
+Enter the details of the source of radiation, the X-ray generator, 
+and the wavelength for each diffraction.
+
+1. For experiment 1:
+<radiation_experiment = "1 ">      !(e.g. 1, 2, ...)
+<radiation_source = "{{diffractometerType}}">           !(e.g. SYNCHROTRON, ROTATING ANODE ...)
+<radiation_source_type = "BEAMLINE {{beamline}}">      !(e.g. NSLS BEAMLINE X8C ...)
+<radiation_wavelengths= " ">       (e.g. 1.502 ...)
+<radiation_detector = " ">         (e.g. CCD/AREA DETECTOR/IMAGE PLATE ...)
+<radiation_detector_type= "{{xraySource}}">     (e.g. SIEMENS-NICOLET/RIGAKU RAXIS ...)
+<radiation_detector_details = " ">    (e.g. mirrors...)
+<data_collection_date = " ">             (e.g. 2004-11-27)
+<data_collection_temperature = " ">      (e.g. 100 for crystal  1:)
+<data_collection_protocol= " ">          (e.g. SINGLE WAVELENGTH, MAD, ...)
+<data_collection_monochromator= " ">     (e.g. GRAPHITE, Ni FILTER ...)
+
+2. For experiment 2:
+
+<radiation_experiment = " ">      (e.g.  2,3, ...)
+<radiation_source = " ">      
+<radiation_source_type = " ">      
+<radiation_wavelengths= " ">       
+<radiation_detector = " ">     
+<radiation_detector_type= " ">     
+<radiation_detector_details = " ">    
+<data_collection_data = " ">           
+<data_collection_temperature = " ">      
+<data_collection_protocol= " ">          
+<data_collection_monochromator= " ">          
+
+
+
+Additional information can be added by duplicating this section and increasing 
+the ID number.
+
+=====================================END==================================
+
+  
